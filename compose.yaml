@@ -29,7 +29,7 @@ services:
 
 networks:
   Appn_network:
-    driver: overlay
+    driver: bridge
 
 volumes:
   FlightAppnVol:
