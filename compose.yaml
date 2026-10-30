@@ -1,33 +1,44 @@
-services:
-  app:
-    image: flight-booking:2.0.0
-    container_name: flight-booking-app
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/flight_booking
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    depends_on:
-      db:
-        condition: service_healthy
 
-  db:
-    image: mysql:8.4
-    container_name: flight-booking-db
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: flight_booking
+services:
+  frontend:
+    container_name: flight_appn_container
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3306:3306"
+      - "2128:80"
+    networks:
+      - FENetwork
+      - AppNetwork
     volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$${MYSQL_ROOT_PASSWORD}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
+      - FlightAppnVol:/Appn_Status/
+
+  database:
+    container_name: mysql_db
+    image: mysql:8.4
+    ports:
+      - "2129:3306"
+    networks:
+      - DBNetwork
+      - AppNetwork
+    volumes:
+      - FlightAppnDBVol:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: flight_booking
+      MYSQL_USER: flightuser
+      MYSQL_PASSWORD: password123
+
+networks:
+  FENetwork:
+    driver: bridge
+
+  DBNetwork:
+    driver: bridge
+
+  AppNetwork:
+    driver: bridge
 
 volumes:
-  mysql_data:
+  FlightAppnVol:
+  FlightAppnDBVol:
