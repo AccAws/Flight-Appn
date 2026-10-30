@@ -12,10 +12,13 @@ function App() {
 
     if (!source.trim() || !destination.trim()) {
       setMessage('Please enter both source and destination.')
+      setFlights([])
       return
     }
 
     try {
+      setMessage('Searching flights...')
+
       const response = await fetch(
         `/api/flights/search?source=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}`
       )
@@ -28,8 +31,8 @@ function App() {
       setFlights(data)
       setMessage(data.length ? '' : 'No flights found for this route.')
     } catch (error) {
-      setMessage('Unable to connect to the flight booking service.')
       setFlights([])
+      setMessage('Unable to connect to the flight booking service.')
     }
   }
 
@@ -76,11 +79,46 @@ function App() {
 
           {flights.length > 0 && (
             <section className="results">
-              <h2>Available Flights</h2>
+              <h2>Available Flights ({flights.length})</h2>
+
               {flights.map((flight) => (
                 <article className="flight-card" key={flight.id}>
-                  <h3>{flight.source} → {flight.destination}</h3>
-                  <p>Flight ID: {flight.id}</p>
+                  <div className="flight-header">
+                    <h3>✈ {flight.airline}</h3>
+                    <span>Flight ID: {flight.id}</span>
+                  </div>
+
+                  <div className="flight-route">
+                    <div>
+                      <span className="flight-label">FROM</span>
+                      <h3>{flight.source}</h3>
+                    </div>
+
+                    <span className="route-arrow">→</span>
+
+                    <div>
+                      <span className="flight-label">TO</span>
+                      <h3>{flight.destination}</h3>
+                    </div>
+                  </div>
+
+                  <div className="flight-footer">
+                    <div>
+                      <span className="flight-label">DEPARTURE</span>
+                      <p>
+                        {new Date(
+                          flight.departure_time
+                        ).toLocaleString('en-IN')}
+                      </p>
+                    </div>
+
+                    <div>
+                      <span className="flight-label">PRICE</span>
+                      <h2>
+                        ₹{Number(flight.price).toLocaleString('en-IN')}
+                      </h2>
+                    </div>
+                  </div>
                 </article>
               ))}
             </section>
