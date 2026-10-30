@@ -1,166 +1,52 @@
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f7fb;
-  color: #172033;
-}
-
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.navbar {
+.flight-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 22px 8%;
-  background: #ffffff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
 }
 
-.navbar h2 {
-  color: #155eef;
-}
-
-.navbar span {
+.flight-header span {
   color: #64748b;
   font-size: 14px;
 }
 
-.hero {
-  flex: 1;
-  padding: 90px 8%;
-  background: linear-gradient(135deg, #e8f0ff, #f7f9ff);
+.flight-route {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.hero-content {
-  max-width: 1000px;
-  margin: auto;
+.flight-label {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-.eyebrow {
+.route-arrow {
+  font-size: 25px;
   color: #155eef;
-  font-weight: bold;
-  letter-spacing: 2px;
-  font-size: 12px;
-  margin-bottom: 18px;
 }
 
-h1 {
-  font-size: clamp(36px, 5vw, 58px);
-  margin-bottom: 16px;
-}
-
-.subtitle {
-  color: #64748b;
-  font-size: 17px;
-  margin-bottom: 40px;
-}
-
-.search-card {
+.flight-footer {
   display: flex;
-  align-items: end;
-  gap: 18px;
-  padding: 28px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
 }
 
-.field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.field label {
-  font-size: 12px;
-  font-weight: bold;
-  color: #64748b;
-}
-
-.field input {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #dbe2ea;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
-}
-
-.field input:focus {
-  border-color: #155eef;
-}
-
-button {
-  padding: 16px 25px;
-  background: #155eef;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-button:hover {
-  background: #0848c7;
-}
-
-.message {
-  margin-top: 25px;
+.flight-footer p {
   color: #475569;
 }
 
-.results {
-  margin-top: 40px;
-}
-
-.results h2 {
-  margin-bottom: 18px;
+.flight-footer h2 {
+  color: #155eef;
 }
 
 .flight-card {
-  background: white;
-  padding: 22px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.flight-card p {
-  margin-top: 10px;
-  color: #64748b;
-}
-
-footer {
-  padding: 22px;
-  text-align: center;
-  color: #64748b;
-  background: white;
-  font-size: 13px;
-}
-
-@media (max-width: 700px) {
-  .hero {
-    padding: 55px 6%;
-  }
-
-  .search-card {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .navbar {
-    padding: 20px 6%;
-  }
+  margin-bottom: 20px;
 }
