@@ -6,11 +6,14 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "2128:80"
+      - "2128:8080"
     networks:
       - Appn_network
-    volumes:
-      - FlightAppnVol:/Appn_Status/
+    environment:
+      DB_PASSWORD: password123
+    depends_on:
+      database:
+        condition: service_healthy
 
   database:
     container_name: mysql_db
@@ -26,11 +29,16 @@ services:
       MYSQL_DATABASE: flight_booking
       MYSQL_USER: flightuser
       MYSQL_PASSWORD: password123
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
 networks:
   Appn_network:
     driver: bridge
 
 volumes:
-  FlightAppnVol:
   FlightAppnDBVol:
